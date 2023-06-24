@@ -75,7 +75,9 @@ class _LoginForm extends StatelessWidget {
               const Spacer(),
               FilledButton(
                   onPressed: () {
-                    controller.submit(context);
+                    if (controller.isValidForm) {
+                      _showSuccessDialog(context);
+                    }
                   },
                   child: const Text('Login'))
             ],
@@ -83,5 +85,24 @@ class _LoginForm extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _showSuccessDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            title: Text('Cargando datos...'),
+            content: SizedBox(
+              width: 100,
+              height: 100,
+              child: Center(
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                ),
+              ),
+            ),
+          );
+        });
   }
 }
